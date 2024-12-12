@@ -25,6 +25,9 @@ class LeafNode(HTMLNode):
                    return self.value
                #TODO: Loop through self.props dict to get the needed values.
                if self.props != None:
-                   return f"<{self.tag}>{self.value}</{self.tag}>\n<a href=<{self.props["href"]}</a>"
+                   attributes = []
+                   for key, value in self.props.items():
+                       attributes.append(f'{key}="{value}"')
+                   attributes_str = " ".join(attributes)
+                   return f"<{self.tag} {attributes_str}>{self.value}</{self.tag}>"
                return f"<{self.tag}>{self.value}</{self.tag}>"
-           
