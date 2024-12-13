@@ -15,19 +15,18 @@ class HTMLNode:
         return f"HTMLNode({self.tag}, {self.value}, {self.children}, {self.props})"
     
 class LeafNode(HTMLNode):
-       def __init__(self, tag, value, props=None):
-           super().__init__(tag, value, [], props=None)
+    def __init__(self, tag, value, props=None):
+        super().__init__(tag, value, [], props=None)
            
-           def to_html(self):
-               if self.value == None:
-                   raise ValueError("Leaf node must have a value.")
-               if self.tag == None:
-                   return self.value
-               #TODO: Loop through self.props dict to get the needed values.
-               if self.props != None:
-                   attributes = []
-                   for key, value in self.props.items():
-                       attributes.append(f'{key}="{value}"')
-                   attributes_str = " ".join(attributes)
-                   return f"<{self.tag} {attributes_str}>{self.value}</{self.tag}>"
-               return f"<{self.tag}>{self.value}</{self.tag}>"
+    def to_html(self):
+        if self.value == None:
+            raise ValueError("Leaf node must have a value.")
+        if self.tag == None:
+            return self.value
+        if self.props != None:
+            attributes = []
+            for key, value in self.props.items():
+                attributes.append(f'{key}="{value}"')
+            attributes_str = " ".join(attributes)
+            return f"<{self.tag} {attributes_str}>{self.value}</{self.tag}>"
+        return f"<{self.tag}>{self.value}</{self.tag}>"

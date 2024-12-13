@@ -29,6 +29,17 @@ class TestHTMLNode(unittest.TestCase):
                             "target": "_blank",
                         })
         self.assertDictEqual(node.props, node2.props)
+        
+    #TODO: test if to_html raises ValueError
+    #def test_to_html_value_error(self):
+        #node = LeafNode()
+    def test_to_html_tag_value(self):
+        node = LeafNode(None, "This is a paragraph of text.", None)
+        #this only checks if the defined node value equals the asserted test
+        #TODO: check if value returns when tag is none with to_html method
+        self.assertIs(node.value, "This is a paragraph of text.")
+        
+    #TODO: test if self.props outputs correctly when not None
     
 if __name__ == "__main__":
     unittest.main() 
