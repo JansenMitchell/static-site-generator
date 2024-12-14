@@ -30,16 +30,18 @@ class TestHTMLNode(unittest.TestCase):
                         })
         self.assertDictEqual(node.props, node2.props)
         
-    #TODO: test if to_html raises ValueError
-    #def test_to_html_value_error(self):
-        #node = LeafNode()
-    def test_to_html_tag_value(self):
+    def test_to_html_value_error(self):
+        node = LeafNode("a", None, {"href": "https://www.google.com"})
+        self.assertRaises(ValueError, node.to_html)
+    
+    def test_to_html_tag_none(self):
         node = LeafNode(None, "This is a paragraph of text.", None)
-        #this only checks if the defined node value equals the asserted test
-        #TODO: check if value returns when tag is none with to_html method
-        self.assertIs(node.value, "This is a paragraph of text.")
+        self.assertEqual(node.to_html(), "This is a paragraph of text.")
         
-    #TODO: test if self.props outputs correctly when not None
+    #this is currently failing due to a logic error in the original method
+    def test_to_html_props_not_none(self):
+        node = LeafNode("a", "Click me!", {"href": "https://www.google.com"})
+        self.assertEqual(node.to_html(), '<a href="https://www.google.com">Click me!</a>')
     
 if __name__ == "__main__":
     unittest.main() 
