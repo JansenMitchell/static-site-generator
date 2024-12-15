@@ -38,7 +38,6 @@ class TestHTMLNode(unittest.TestCase):
         node = LeafNode(None, "This is a paragraph of text.", None)
         self.assertEqual(node.to_html(), "This is a paragraph of text.")
         
-    #this is currently failing due to a logic error in the original method
     def test_to_html_props_not_none(self):
         node = LeafNode("a", "Click me!", {"href": "https://www.google.com"})
         self.assertEqual(node.to_html(), '<a href="https://www.google.com">Click me!</a>')
