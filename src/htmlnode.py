@@ -34,3 +34,20 @@ class LeafNode(HTMLNode):
 class ParentNode(HTMLNode):
     def __init__(self, tag, children, props=None):
         super().__init__(tag, None, children, props)
+        
+    def to_html(self):
+        if self.tag == None:
+            raise ValueError("Parent node must have a tag.")
+        if self.children == None:
+            raise ValueError("Parent node must have children")
+        
+        result = f"<{self.tag}>"
+        for child in self.children:
+            child.to_html()
+            # TODO: How could I add each child's HTML to result?
+            # TODO: Remember: child.to_html() returns the HTML string
+        
+        result += f"</{self.tag}"
+        return result
+            
+        
