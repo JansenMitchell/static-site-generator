@@ -43,11 +43,8 @@ class ParentNode(HTMLNode):
         
         result = f"<{self.tag}>"
         for child in self.children:
-            child.to_html()
-            # TODO: How could I add each child's HTML to result?
-            # TODO: Remember: child.to_html() returns the HTML string
-        
-        result += f"</{self.tag}"
+            result += child.to_html()    
+        result += f"</{self.tag}>"
         return result
             
         
