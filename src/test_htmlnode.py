@@ -30,17 +30,36 @@ class TestHTMLNode(unittest.TestCase):
                         })
         self.assertDictEqual(node.props, node2.props)
         
-    def test_to_html_value_error(self):
+    def test_leaf_value_error(self):
         node = LeafNode("a", None, {"href": "https://www.google.com"})
         self.assertRaises(ValueError, node.to_html)
     
-    def test_to_html_tag_none(self):
+    def test_leaf_tag_none(self):
         node = LeafNode(None, "This is a paragraph of text.", None)
         self.assertEqual(node.to_html(), "This is a paragraph of text.")
         
-    def test_to_html_props_not_none(self):
+    def test_leaf_props_not_none(self):
         node = LeafNode("a", "Click me!", {"href": "https://www.google.com"})
         self.assertEqual(node.to_html(), '<a href="https://www.google.com">Click me!</a>')
+        
+    def test_parent_tag_value_error(self):
+        node = ParentNode(
+            None,
+            [
+                LeafNode("b", "Bold text"),
+                LeafNode(None, "Normal text"),
+                LeafNode("i", "italic text"),
+                LeafNode(None, "Normal text"),
+            ],
+        )
+        self.assertRaises(ValueError, node.to_html)
+        
+    def test_parent_children_value_error(self):
+        node = ParentNode("p", None)
+        self.assertRaises(ValueError, node.to_html)
+        
+    #TODO: test for multiple children
+    #TODO: test for children nesting
     
 if __name__ == "__main__":
     unittest.main() 
