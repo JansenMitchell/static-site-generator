@@ -11,6 +11,16 @@ class HTMLNode:
     def props_to_html(self):
         return f" href={self.props["href"]} target={self.props["target"]}"
     
+    def __eq__(self, value):
+        if isinstance(value, HTMLNode):
+            if (self.tag == value.tag 
+                and self.value == value.value 
+                and self.children == value.children
+                and self.props == value.props):
+                return True
+            return False
+        return False
+    
     def __repr__(self) -> str:
         return f"HTMLNode({self.tag}, {self.value}, {self.children}, {self.props})"
     

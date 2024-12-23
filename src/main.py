@@ -2,7 +2,7 @@ from textnode import *
 from htmlnode import *
 
 def main():
-    test_object = TextNode("This is a text node", TextType.NORMAL_TEXT, "https://www.boot.dev")
+    test_object = TextNode("This is a text node", TextType.NORMAL, "https://www.boot.dev")
     print(test_object)
     
 def text_node_to_html_node(text_node):
