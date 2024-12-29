@@ -9,7 +9,7 @@ class TestTextNodeToHtmlNode(unittest.TestCase):
         new_nodes = split_nodes_delimiter([node], "`", TextType.CODE)
         self.assertEqual(new_nodes,
                         [
-                            TextNode("This is text with a ", TextType.NORMAL),
+                            TextNode("This is a text with a ", TextType.NORMAL),
                             TextNode("code block", TextType.CODE),
                             TextNode(" word", TextType.NORMAL),
                         ])
