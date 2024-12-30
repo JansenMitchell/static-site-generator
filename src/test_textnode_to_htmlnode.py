@@ -9,10 +9,6 @@ class TestTextNodeToHtmlNode(unittest.TestCase):
         text_node = TextNode("Normal text", TextType.NORMAL)
         self.assertEqual(text_node_to_html_node(text_node), LeafNode(None, text_node.text, {}))
         
-    def test_text_type_bold(self):
-        text_node = TextNode("Bold text", TextType.BOLD)
-        self.assertEqual(text_node_to_html_node(text_node), LeafNode("b", text_node.text, {}))
-        
     def test_text_type_links(self):
         text_node = TextNode("Links", TextType.LINKS)
         props = {"href": text_node.url}

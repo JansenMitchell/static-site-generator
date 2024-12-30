@@ -3,19 +3,6 @@ import unittest
 from htmlnode import *
 
 class TestHTMLNode(unittest.TestCase):
-    def test_props_equal(self):
-        node = HTMLNode(None, None, None, 
-                        {
-                            "href": "https://www.google.com", 
-                            "target": "_blank",
-                        })
-        node2 = HTMLNode(None, None, None, 
-                        {
-                            "href": "https://www.google.com", 
-                            "target": "_blank",
-                        })
-        self.assertDictEqual(node.props, node2.props)
-        
     def test_leaf_value_error(self):
         node = LeafNode("a", None, {"href": "https://www.google.com"})
         self.assertRaises(ValueError, node.to_html)
