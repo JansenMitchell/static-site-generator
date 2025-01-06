@@ -17,4 +17,10 @@ def split_nodes_delimiter(old_nodes, delimiter, text_type):
         else:
             segment_list.append(old_nodes)
     return segment_list
+
+def split_nodes_image(old_nodes):
+    pass
+
+def split_nodes_link(old_nodes):
+    pass
                 
