@@ -13,7 +13,7 @@ class TestTextNodeToHtmlNode(unittest.TestCase):
                             TextNode("code block", TextType.CODE),
                             TextNode(" word", TextType.NORMAL),
                         ])
-    def test_image(self):
+    def test_link(self):
         node = TextNode(
             "This is text with a link [to boot dev](https://www.boot.dev) and [to youtube](https://www.youtube.com/@bootdotdev)",
             TextType.NORMAL,

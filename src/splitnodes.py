@@ -1,4 +1,5 @@
 from textnode import *
+from extractmarkdown import *
 
 def split_nodes_delimiter(old_nodes, delimiter, text_type):
     segment_list = []
@@ -22,5 +23,13 @@ def split_nodes_image(old_nodes):
     pass
 
 def split_nodes_link(old_nodes):
-    pass
+    segment_list = []
+    for node in old_nodes:
+        if node.text_type == TextType.LINKS:
+            segments = extract_markdown_links(node)
+            for segment in segments:
+                text = segment.text
+                url = segment.url
+                new_node = TextNode(text, TextType.LINKS, url)
+                segment_list.append(new_node)
                 
