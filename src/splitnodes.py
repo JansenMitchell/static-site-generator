@@ -36,6 +36,8 @@ def split_nodes_link(old_nodes):
                 if sections[0]:
                     segment_list.append(TextNode(sections[0], TextType.NORMAL))
                 segment_list.append(TextNode(link.text, TextType.LINKS, link.url))
+                if sections[1]:
+                    segment_list.append(TextNode(sections[1], TextType.NORMAL))
                 url = sections
                 new_node = TextNode(text, TextType.LINKS, url)
                 segment_list.append(new_node)
