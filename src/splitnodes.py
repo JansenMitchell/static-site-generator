@@ -27,10 +27,6 @@ def split_nodes_link(old_nodes):
     for node in old_nodes:
         if node.text_type == TextType.NORMAL:
             segments = extract_markdown_links(node)
-            #TODO: Split the text around the link
-            #TODO: Create a text node for the content before the link (if any)
-            #TODO: Create a link node for the link itself
-            #TODO: Continue with the remaining text
             for link in segments:
                 sections = node.text.split(f"[{link.text}]({link.url})", 1)
                 if sections[0]:
@@ -39,5 +35,5 @@ def split_nodes_link(old_nodes):
                 if sections[1]:
                     segment_list.append(TextNode(sections[1], TextType.NORMAL))
         else:
-            segment_list.append(new_node)
+            segment_list.append(node)
                 
