@@ -26,14 +26,15 @@ def split_nodes_link(old_nodes):
     segment_list = []
     for node in old_nodes:
         if node.text_type == TextType.NORMAL:
-            segments = extract_markdown_links(node)
+            segments = extract_markdown_links(node.text)
             for link in segments:
-                sections = node.text.split(f"[{link.text}]({link.url})", 1)
+                sections = node.text.split(f"[{link[0]}]({link[1]})", 1)
                 if sections[0]:
                     segment_list.append(TextNode(sections[0], TextType.NORMAL))
-                segment_list.append(TextNode(link.text, TextType.LINKS, link.url))
+                segment_list.append(TextNode(link[0], TextType.LINKS, link[1]))
                 if sections[1]:
                     segment_list.append(TextNode(sections[1], TextType.NORMAL))
         else:
             segment_list.append(node)
+    return segment_list
                 
