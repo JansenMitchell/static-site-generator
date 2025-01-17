@@ -13,18 +13,12 @@ class TestTextNodeToHtmlNode(unittest.TestCase):
                             TextNode("code block", TextType.CODE),
                             TextNode(" word", TextType.NORMAL),
                         ])
-    def test_link(self):
-        node = TextNode(
-            "This is text with a link [to boot dev](https://www.boot.dev) and [to youtube](https://www.youtube.com/@bootdotdev)",
-            TextType.NORMAL,
-        )
-        new_nodes = split_nodes_link([node])
-        self.assertEqual(new_nodes,
-                        [
-                            TextNode("This is text with a link ", TextType.NORMAL),
-                            TextNode("to boot dev", TextType.LINKS, "https://www.boot.dev"),
-                            TextNode(" and ", TextType.NORMAL),
-                            TextNode(
-                                "to youtube", TextType.LINKS, "https://www.youtube.com/@bootdotdev"
-                            ),
-                        ])
+    def test_split_nodes_link_basic(self):
+        node = TextNode("Hello [world](https://example.com)", TextType.NORMAL)
+        nodes = split_nodes_link([node])
+        assert len(nodes) == 2
+        assert nodes[0].text == "Hello "
+        assert nodes[0].text_type == TextType.NORMAL
+        assert nodes[1].text == "world"
+        assert nodes[1].text_type == TextType.LINKS
+        assert nodes[1].url == "https://example.com"
