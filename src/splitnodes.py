@@ -35,13 +35,13 @@ def split_nodes_link(old_nodes):
         first_link = links[0]
         
         sections = text.split(f"[{first_link[0]}]({first_link[1]})", 1)
-        
-        #TODO: Recursively process sections[1] for remaining links
-        
+                
         current_results = []
         if sections[0]:
             current_results.append(TextNode(sections[0], TextType.NORMAL))
         current_results.append(TextNode(first_link[0], TextType.LINKS, first_link[1]))
+        if sections[1]:
+            current_results.append(_split_links(sections[1]))
         
         return current_results
             
