@@ -19,6 +19,7 @@ def split_nodes_delimiter(old_nodes, delimiter, text_type):
             segment_list.append(old_nodes)
     return segment_list
 
+#TODO: Implement below.
 def split_nodes_image(old_nodes):
     pass
 
@@ -41,7 +42,7 @@ def split_nodes_link(old_nodes):
             current_results.append(TextNode(sections[0], TextType.NORMAL))
         current_results.append(TextNode(first_link[0], TextType.LINKS, first_link[1]))
         if sections[1]:
-            current_results.append(_split_links(sections[1]))
+            current_results.extend(_split_links(sections[1]))
         
         return current_results
             
