@@ -23,19 +23,34 @@ class TestTextNodeToHtmlNode(unittest.TestCase):
         assert nodes[1].text_type == TextType.LINKS
         assert nodes[1].url == "https://example.com"
         
-    def test_split_nodes_link_multiple(self):
-        node = TextNode(
-            "This is [link1](url1) and [link2](url2)", 
-            TextType.NORMAL
-        )
-        nodes = split_nodes_link([node])
-        assert len(nodes) == 4
-        assert nodes[0].text == "This is "
-        assert nodes[1].text == "link1"
-        assert nodes[1].url == "url1"
-        assert nodes[2].text == " and "
-        assert nodes[3].text == "link2"
-        assert nodes[3].url == "url2"
+        # Case 2: Images adjacent to each other
+        node2 = TextNode("![image1](url1)![image2](url2)", TextType.NORMAL)
+        nodes2 = split_nodes_image([node2])
+        assert len(nodes2) == 2
+        assert nodes2[0].text == "image1"
+        assert nodes2[0].url == "url1"
+        assert nodes2[1].text == "image2"
+        assert nodes2[1].url == "url2"
+
+        # Case 3: Text starts and ends with images
+        node3 = TextNode("![image1](url1) middle text ![image2](url2)", TextType.NORMAL)
+        nodes3 = split_nodes_image([node3])
+        assert len(nodes3) == 3
+        assert nodes3[0].text == "image1"
+        assert nodes3[0].url == "url1"
+        assert nodes3[1].text == " middle text "
+        assert nodes3[2].text == "image2"
+        assert nodes3[2].url == "url2"
+        
+    def test_split_nodes_images_edge_cases(self):
+        # Case 1: Text before and after a single link
+        node1 = TextNode("Some text ![image1](url1) more text.", TextType.NORMAL)
+        nodes1 = split_nodes_image([node1])
+        assert len(nodes1) == 3
+        assert nodes1[0].text == "Some text "
+        assert nodes1[1].text == "image1"
+        assert nodes1[1].url == "url1"
+        assert nodes1[2].text == " more text."
         
     def test_split_nodes_link_edge_cases(self):
         # Case 1: Text before and after a single link
