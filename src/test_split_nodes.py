@@ -4,7 +4,7 @@ from textnode import *
 from splitnodes import *
 
 class TestTextNodeToHtmlNode(unittest.TestCase):
-    def test_code(self):
+    def test_split_delimiter(self):
         node = TextNode("This is a text with a `code block` word", TextType.NORMAL)
         new_nodes = split_nodes_delimiter([node], "`", TextType.CODE)
         self.assertEqual(new_nodes,

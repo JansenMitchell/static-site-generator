@@ -80,3 +80,6 @@ def split_nodes_link(old_nodes):
             result.append(node)
             
     return result
+
+def text_to_textnodes(text):
+    pass
