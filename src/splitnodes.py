@@ -9,14 +9,15 @@ def split_nodes_delimiter(old_nodes, delimiter, text_type):
             if len(segments) % 2 == 0:
                 raise ValueError("Unmatched delimiter found in the text.")
             for i, segment in enumerate(segments):
-                if i % 2 == 0:
-                    node_type = TextType.NORMAL
-                else:
-                    node_type = text_type
-                new_node = TextNode(segment, node_type)
-                segment_list.append(new_node)
+                if segment:
+                    if i % 2 == 0:
+                        node_type = TextType.NORMAL
+                    else:
+                        node_type = text_type
+                    new_node = TextNode(segment, node_type)
+                    segment_list.append(new_node)
         else:
-            segment_list.append(old_nodes)
+            segment_list.append(node)
     return segment_list
 
 def split_nodes_image(old_nodes):
@@ -30,6 +31,8 @@ def split_nodes_image(old_nodes):
             return []
         
         first_image = images[0]
+        if not first_image[0].strip():  # Check if alt text is empty or just whitespace
+            raise ValueError("Image alt text cannot be empty")
         
         sections = text.split(f"![{first_image[0]}]({first_image[1]})", 1)
         
@@ -82,4 +85,13 @@ def split_nodes_link(old_nodes):
     return result
 
 def text_to_textnodes(text):
-    pass
+    if not text:
+        return [TextNode("", TextType.NORMAL)]
+    
+    nodes = [TextNode(text, TextType.NORMAL)]
+    image_nodes = split_nodes_image(nodes)
+    link_nodes = split_nodes_link(image_nodes)
+    bold_nodes = split_nodes_delimiter(link_nodes, "**", TextType.BOLD)
+    italic_nodes = split_nodes_delimiter(bold_nodes, "*", TextType.ITALIC)
+    code_nodes = split_nodes_delimiter(italic_nodes, "`", TextType.CODE)
+    return code_nodes

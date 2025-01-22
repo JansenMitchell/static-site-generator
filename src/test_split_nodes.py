@@ -80,3 +80,48 @@ class TestTextNodeToHtmlNode(unittest.TestCase):
         assert nodes3[1].text == " middle text "
         assert nodes3[2].text == "link2"
         assert nodes3[2].url == "url2"
+        
+    def test_text_to_textnodes(self):
+        text = "This is **text** with an *italic* word and a `code block` and an ![obi wan image](https://i.imgur.com/fJRm4Vk.jpeg) and a [link](https://boot.dev)"
+        nodes = text_to_textnodes(text)
+        self.assertEqual(nodes,
+                        [
+                            TextNode("This is ", TextType.NORMAL),
+                            TextNode("text", TextType.BOLD),
+                            TextNode(" with an ", TextType.NORMAL),
+                            TextNode("italic", TextType.ITALIC),
+                            TextNode(" word and a ", TextType.NORMAL),
+                            TextNode("code block", TextType.CODE),
+                            TextNode(" and an ", TextType.NORMAL),
+                            TextNode("obi wan image", TextType.IMAGES, "https://i.imgur.com/fJRm4Vk.jpeg"),
+                            TextNode(" and a ", TextType.NORMAL),
+                            TextNode("link", TextType.LINKS, "https://boot.dev"),
+                        ])
+        
+    def test_empty_string(self):
+        text = ""
+        nodes = text_to_textnodes(text)
+        self.assertEqual(nodes, [TextNode("", TextType.NORMAL)])
+        
+    def test_unmatched_delimiters(self):
+        text = "This has *only one italic marker"
+        with self.assertRaises(ValueError):
+            text_to_textnodes(text)
+            
+        text = "This has **only one bold marker"
+        with self.assertRaises(ValueError):
+            text_to_textnodes(text)
+            
+    def test_multiple_delimiters(self):
+        text = "**Bold** normal **Bold again**"
+        nodes = text_to_textnodes(text)
+        self.assertEqual(nodes, [
+            TextNode("Bold", TextType.BOLD),
+            TextNode(" normal ", TextType.NORMAL),
+            TextNode("Bold again", TextType.BOLD)
+        ])
+        
+    def test_invalid_link_image(self):
+        text = "![](https://example.com)"  # Empty alt text
+        with self.assertRaises(ValueError):
+            text_to_textnodes(text)
