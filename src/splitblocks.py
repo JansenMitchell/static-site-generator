@@ -1,5 +1,3 @@
-import re
-
 def markdown_to_blocks(markdown):
     blocks = []
     blocks_split = markdown.split("\n\n")
@@ -8,3 +6,6 @@ def markdown_to_blocks(markdown):
         if block_stripped:
             blocks.append(block_stripped)
     return blocks
+
+def block_to_block_type(block):
+    pass
