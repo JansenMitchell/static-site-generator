@@ -11,5 +11,5 @@ class BlockType(Enum):
 def block_to_block_type(block):
     if block[0] == "#":
         return BlockType.HEADING
-    if block[0:3] == "```":
+    if block[0:3] == "```" and block[-3:] == "```":
         return BlockType.CODE
