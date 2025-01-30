@@ -13,3 +13,7 @@ class TestBlockType(unittest.TestCase):
         print("Hello World!")
         ```"""
         self.assertEqual(block_to_block_type(block), BlockType.CODE)
+        
+        # Case 3: Quote blocks
+        block = ">This is a quote"
+        self.assertEqual(block_to_block_type(block), BlockType.QUOTE)

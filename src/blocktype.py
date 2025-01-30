@@ -13,3 +13,5 @@ def block_to_block_type(block):
         return BlockType.HEADING
     if block[0:3] == "```" and block[-3:] == "```":
         return BlockType.CODE
+    if block[0] == ">":
+        return BlockType.QUOTE
