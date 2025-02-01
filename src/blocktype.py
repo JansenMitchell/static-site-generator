@@ -15,3 +15,6 @@ def block_to_block_type(block):
         return BlockType.CODE
     if block[0] == ">":
         return BlockType.QUOTE
+    if ((block[0] == "*" or block[0] == "-")
+    and block[1] == " "):
+        return BlockType.UNORDERED_LIST

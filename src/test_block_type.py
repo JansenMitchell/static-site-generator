@@ -17,3 +17,7 @@ class TestBlockType(unittest.TestCase):
         # Case 3: Quote blocks
         block = ">This is a quote"
         self.assertEqual(block_to_block_type(block), BlockType.QUOTE)
+        
+        # Case 4: Unordered list
+        block = "- This is an item"
+        self.assertEqual(block_to_block_type(block), BlockType.UNORDERED_LIST)
