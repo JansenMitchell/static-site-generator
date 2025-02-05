@@ -1,6 +1,6 @@
 import unittest
 
-from main import text_node_to_html_node
+from textnodetohtmlnode import *
 from textnode import *
 from htmlnode import *
 
