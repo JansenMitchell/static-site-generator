@@ -32,7 +32,7 @@ def create_html_node_for_block(block):
         return HTMLNode(tag=f"h{level}", children=text_to_children(text))
 
     elif block_type == BlockType.PARAGRAPH:
-        return HTMLNode(tag="p", children=[block.strip()])
+        return HTMLNode(tag="p", children=text_to_children(block.strip()))
 
     elif block_type == BlockType.CODE:
         code_content = block[3:-3].strip()  # Remove the triple backticks
