@@ -4,7 +4,7 @@ from blocktype import *
 from splitnodes import *
 from textnodetohtmlnode import *
 
-def markdown_to_hmtl_node(markdown):
+def markdown_to_html_node(markdown):
     blocks = markdown_to_blocks(markdown)
     parent_node = HTMLNode(tag="div", children=[])
     for block in blocks:
@@ -40,7 +40,7 @@ def create_html_node_for_block(block):
 
     elif block_type == BlockType.QUOTE:
         quote_content = block[1:].strip()  # Remove the `>` marker
-        return HTMLNode(tag="blockquote", children=[quote_content])
+        return HTMLNode(tag="blockquote", children=text_to_children(quote_content))
 
     elif block_type == BlockType.UNORDERED_LIST:
         list_items = [HTMLNode(tag="li", children=[item[2:].strip()]) for item in block.split("\n") if item]
