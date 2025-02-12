@@ -15,6 +15,8 @@ def copy_source_to_destination(source, destination):
         source_path = os.path.join(source, item)
         dest_path = os.path.join(destination, item)
         if os.path.isfile(source_path):
+            print(f"Copying file: {source_path} -> {dest_path}")
             shutil.copy(source_path, dest_path)
         elif os.path.isdir(source_path):
+            print(f"Processing directory: {source_path}")
             copy_source_to_destination(source_path, dest_path)
