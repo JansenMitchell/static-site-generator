@@ -10,7 +10,6 @@ def copy_source_to_destination(source, destination):
             print(f"Error removing '{destination}': {e}")
     os.mkdir(destination)
     
-    #TODO: Add logging
     for item in os.listdir(source):
         source_path = os.path.join(source, item)
         dest_path = os.path.join(destination, item)
@@ -20,3 +19,9 @@ def copy_source_to_destination(source, destination):
         elif os.path.isdir(source_path):
             print(f"Processing directory: {source_path}")
             copy_source_to_destination(source_path, dest_path)
+            
+def main():
+    copy_source_to_destination("static", "public")
+
+if __name__ == "__main__":
+    main()
