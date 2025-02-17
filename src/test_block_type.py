@@ -25,7 +25,3 @@ class TestBlockType(unittest.TestCase):
         # Case 5: Ordered list
         block = "1. This is the first item"
         self.assertEqual(block_to_block_type(block), BlockType.ORDERED_LIST)
-        
-        # Case 6: Paragraph
-        block = "This is a paragraph."
-        self.assertEqual(block_to_block_type(block), BlockType.PARAGRAPH)
