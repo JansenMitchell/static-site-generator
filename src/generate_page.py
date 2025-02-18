@@ -1,5 +1,6 @@
 from markdowntohtml import markdown_to_html_node
 from htmlnode import *
+import os
 
 def extract_title(markdown):
     markdown_split = markdown.split('\n')
@@ -21,3 +22,11 @@ def generate_page(from_path, template_path, dest_path):
     title = extract_title(from_file)
     html_node = markdown_to_html_node(from_file)  # First convert markdown to node
     html_string = html_node.to_html()  # Then convert node to HTML string
+    
+    final_html = template_file.replace("{{ Title }}", title).replace("{{ Content }}", html_string)
+    
+    dir_path = os.path.dirname(dest_path)
+    os.makedirs(dir_path, exist_ok=True)
+    
+    with open(dest_path, "w") as file:
+        file.write(final_html)
