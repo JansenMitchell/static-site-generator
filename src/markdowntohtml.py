@@ -22,10 +22,11 @@ def text_to_children(text):
     # Convert all text nodes to HTML nodes
     return [text_node_to_html_node(node) for node in nodes]
 
-    # TODO: Correct TextType definitions, with the exception of CODE
 def create_html_node_for_block(block):
     block_type = block_to_block_type(block)  # Determine the block type
 
+    #TODO: Create LINKS BlockType
+    
     if block_type == BlockType.HEADING:
         # Extract heading level and text
         level = block.count("#", 0, block.find(" "))  # Number of '#' characters before the first space

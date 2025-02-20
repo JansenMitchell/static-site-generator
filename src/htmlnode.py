@@ -38,7 +38,7 @@ class LeafNode(HTMLNode):
             for key, value in self.props.items():
                 attributes.append(f'{key}="{value}"')
             attributes_str = " ".join(attributes)
-            return f"<{self.tag} {attributes_str}>{self.value}</{self.tag}>"
+            return f"<{self.tag}{attributes_str}>{self.value}</{self.tag}>"
         return f"<{self.tag}>{self.value}</{self.tag}>"
     
 class ParentNode(HTMLNode):
