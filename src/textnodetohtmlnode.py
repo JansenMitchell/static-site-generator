@@ -11,8 +11,11 @@ def text_node_to_html_node(text_node):
     if text_node.text_type == TextType.CODE:
         return LeafNode("code", text_node.text, {})
     if text_node.text_type == TextType.LINKS:
-        props = {"href": text_node.url}
-        return LeafNode("a", text_node.text, props)
+        return LeafNode(
+            "a",
+            text_node.text,
+            {"href": text_node.url}  # Make sure props are being set!
+        )
     if text_node.text_type == TextType.IMAGES:
         props = {
             "src": text_node.url,

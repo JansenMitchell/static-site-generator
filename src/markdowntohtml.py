@@ -19,13 +19,12 @@ def text_to_children(text):
     nodes = split_nodes_delimiter(nodes, "**", TextType.BOLD)
     nodes = split_nodes_delimiter(nodes, "*", TextType.ITALIC)
     nodes = split_nodes_delimiter(nodes, "`", TextType.CODE)
+    nodes = split_nodes_link(nodes)
     # Convert all text nodes to HTML nodes
     return [text_node_to_html_node(node) for node in nodes]
 
 def create_html_node_for_block(block):
     block_type = block_to_block_type(block)  # Determine the block type
-
-    #TODO: Create LINKS BlockType
     
     if block_type == BlockType.HEADING:
         # Extract heading level and text
