@@ -1,6 +1,6 @@
 import os
 import shutil
-from generate_page import generate_page
+from generate_page import generate_pages_recursive
 
 def copy_source_to_destination(source, destination):
     if os.path.exists(destination):
@@ -26,7 +26,7 @@ def main():
         shutil.rmtree("public")
     os.makedirs("public")
     copy_source_to_destination("static", "public")
-    generate_page("content/index.md", "template.html", "public/index.html")
+    generate_pages_recursive("content", "template.html", "public")
 
 if __name__ == "__main__":
     main()

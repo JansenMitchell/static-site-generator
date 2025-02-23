@@ -1,7 +1,7 @@
 from markdowntohtml import markdown_to_html_node
 from htmlnode import *
 import os
-import pathlib
+from pathlib import Path
 
 def extract_title(markdown):
     markdown_split = markdown.split('\n')
@@ -39,6 +39,18 @@ def generate_pages_recursive(dir_path_content, template_path, dest_dir_path):
         full_path = os.path.join(dir_path_content, entry)
         if os.path.isfile(full_path):
             if entry.endswith(".md"):
-                pass
+                #TODO: Debug path creation code
+                
+                # Convert the full path to a Path object
+                path_obj = Path(full_path)
+                # Get the relative path from the content directory
+                rel_path = path_obj.relative_to(dir_path_content)
+                # Create new path in public directory
+                output_path = Path(dest_dir_path) / rel_path
+                # Change extension from .md to .html
+                output_path = output_path.with_suffix('.html')
+                html_content = generate_page(full_path, template_path, output_path)       
+                output_path.parent.mkdir(parents=True, exist_ok=True)
+
         elif os.path.isdir(full_path):
-            pass
+            generate_pages_recursive(full_path, template_path, dest_dir_path)
