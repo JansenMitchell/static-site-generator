@@ -26,11 +26,7 @@ def generate_page(from_path, template_path, dest_path):
     
     final_html = template_file.replace("{{ Title }}", title).replace("{{ Content }}", html_string)
     
-    dir_path = os.path.dirname(dest_path)
-    os.makedirs(dir_path, exist_ok=True)
-    
-    with open(dest_path, "w") as file:
-        file.write(final_html)
+    return final_html
         
 def generate_pages_recursive(dir_path_content, template_path, dest_dir_path):
     print(f"Generating page from {dir_path_content}, to {dest_dir_path} using {template_path}")
@@ -49,8 +45,14 @@ def generate_pages_recursive(dir_path_content, template_path, dest_dir_path):
                 output_path = Path(dest_dir_path) / rel_path
                 # Change extension from .md to .html
                 output_path = output_path.with_suffix('.html')
-                html_content = generate_page(full_path, template_path, output_path)       
                 output_path.parent.mkdir(parents=True, exist_ok=True)
+                html_content = generate_page(full_path, template_path, output_path)
+                
+                with open(output_path, "w") as file:
+                    file.write(html_content)
+                
 
         elif os.path.isdir(full_path):
-            generate_pages_recursive(full_path, template_path, dest_dir_path)
+    # Create corresponding subdirectory in destination
+            new_dest_dir = os.path.join(dest_dir_path, entry)
+            generate_pages_recursive(full_path, template_path, new_dest_dir)

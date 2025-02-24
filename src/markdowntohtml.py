@@ -63,5 +63,19 @@ def create_html_node_for_block(block):
                 text_children = text_to_children(text)  # Convert text to proper nodes
                 list_items.append(ParentNode(tag="li", children=text_children))
         return ParentNode(tag="ol", children=list_items)
+    
+    elif block_type == BlockType.IMAGE:
+    # Extract alt text (between ![...])
+        alt_start = block.find("![") + 2
+        alt_end = block.find("]")
+        alt_text = block[alt_start:alt_end]
+        
+        # Extract URL (between (...))
+        url_start = block.find("(") + 1
+        url_end = block.find(")")
+        url = block[url_start:url_end]
+        
+        # Create an img node using props instead of attributes
+        return LeafNode(tag="img", value="", props={"src": url, "alt": alt_text})
 
     return None  # In case a new block type crops up unexpectedly

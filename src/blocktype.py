@@ -7,6 +7,7 @@ class BlockType(Enum):
     QUOTE = "qoute"
     UNORDERED_LIST = "unordred_list"
     ORDERED_LIST = "ordered_list"
+    IMAGE = "image"
     
 def block_to_block_type(block):
     if block[0] == "#":
@@ -25,4 +26,6 @@ def block_to_block_type(block):
         if number_part.isdigit() and int(number_part) == 1:
             if content_part.startswith(" "):
                 return BlockType.ORDERED_LIST
+    if block[0] == "!":
+        return BlockType.IMAGE
     return BlockType.PARAGRAPH
